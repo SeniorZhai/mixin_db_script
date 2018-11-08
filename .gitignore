@@ -1,0 +1,4 @@
+*.sql
+*.db-wal
+*.db
+*.db-shm
