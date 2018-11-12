@@ -7,5 +7,6 @@ do
 node generate.js
 echo "insert start!!!"
 sqlite3 mixin.db < new.sql
+check-db.sh
 echo "insert success $i"
 done

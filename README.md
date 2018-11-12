@@ -1,8 +1,3 @@
 ```bash
-node generate.js
-pull-db.sh
-check-db.sh
-sqlite3 mixin.db < **.sql
-check-db.sh
-push-db.sh
+node insert_bot.js count [conversation_id] [user_id] [user_id]
 ```
