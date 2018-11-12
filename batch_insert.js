@@ -80,7 +80,6 @@ INSERT INTO messages (id,conversation_id,user_id,category,content,media_url,medi
     shell.exec(`sqlite3 mixin.db < ${file}`)
     console.log("End insert")
     shell.exec("check-db.sh")
-    shell.exec("push-db.sh")
 }
 
 do {
@@ -93,3 +92,4 @@ do {
     }
 } while(count > 0)
 
+shell.exec("push-db.sh")
