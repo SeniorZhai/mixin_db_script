@@ -39,6 +39,9 @@ function gen(length){
 
     console.log(new Date())
     var start = `BEGIN TRANSACTION;
+DROP TRIGGER IF EXISTS conversation_last_message_update;
+DROP TRIGGER IF EXISTS conversation_last_message_delete;
+DROP TRIGGER IF EXISTS conversation_unseen_message_count_insert;
 INSERT INTO messages (id,conversation_id,user_id,category,content,media_url,media_mime_type,media_size,media_duration,media_width,media_height,media_hash,thumb_image,media_key,media_digest,media_status,status,created_at,action,participant_id,snapshot_id,hyperlink,name,album_id,sticker_id,shared_user_id,media_waveform,media_mine_type,quote_message_id,quote_content) VALUES \n`
     fs.appendFileSync(file,start,function(err){
         if(err){
@@ -53,7 +56,7 @@ INSERT INTO messages (id,conversation_id,user_id,category,content,media_url,medi
         if(i == length-1){
             end = ';'
         }
-        var content = `测试消息-No.${index++}`
+        var content = `测试消息☺No.${index++}`
         var user_id = user_id1
         if(i % 2 == 0){
             user_id = user_id2
@@ -67,8 +70,11 @@ INSERT INTO messages (id,conversation_id,user_id,category,content,media_url,medi
             }
         })
     }
-    
-    fs.appendFileSync(file,'COMMIT;',function(err){
+    var end = `CREATE TRIGGER conversation_last_message_update AFTER INSERT ON messages BEGIN UPDATE conversations SET last_message_id = new.id WHERE conversation_id = new.conversation_id; END;
+CREATE TRIGGER conversation_last_message_delete AFTER DELETE ON messages BEGIN UPDATE conversations SET last_message_id = (select id from messages where conversation_id = old.conversation_id order by created_at DESC limit 1) WHERE conversation_id = old.conversation_id; END;
+CREATE TRIGGER conversation_unseen_message_count_insert AFTER INSERT ON messages BEGIN UPDATE conversations SET unseen_message_count = (SELECT count(m.id) FROM messages m, users u WHERE m.user_id = u.user_id AND u.relationship != 'ME' AND m.status = 'DELIVERED' AND conversation_id = new.conversation_id) where conversation_id = new.conversation_id; END;
+COMMIT;`
+    fs.appendFileSync(file,end,function(err){
         if(err){
             console.log(err)
         } else {
@@ -92,4 +98,3 @@ do {
     }
 } while(count > 0)
 
-shell.exec("push-db.sh")
