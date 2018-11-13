@@ -3,7 +3,7 @@ const uuid = require('uuid/v1')
 const shell = require('shelljs');
 
 const file = 'new.sql'
-const step = 1000
+const step = 20000
 
 var count = process.argv[2]
 var conversation_id = process.argv[3]
