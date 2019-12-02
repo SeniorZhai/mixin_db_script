@@ -23,9 +23,9 @@ if (user_id2 == null) {
 
 console.log(`start insert ${count} message...`);
 
-shell.exec("pull-db.sh");
+// shell.exec("pull-db.sh");
 
-console.log(`pull db success...`);
+// console.log(`pull db success...`);
 
 var index = 1;
 function gen(length) {
@@ -62,7 +62,7 @@ INSERT INTO messages (id,conversation_id,user_id,category,content,media_url,medi
     if (i % 2 == 0) {
       user_id = user_id2;
     }
-    var sql = `('${id}', '${conversation_id}','${user_id}', 'SIGNAL_TEXT', '${content}', NULL, NULL, NULL, NULL, NULL, NULL, NULL,NULL, NULL, NULL, NULL, 'READ', '${created_at}', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL)${end}\n`;
+    var sql = `('${id}', '${conversation_id}','${user_id}', 'SIGNAL_TEXT', '${content}', NULL, NULL, NULL, NULL, NULL, NULL, NULL,NULL, NULL, NULL, NULL, 'DELIVERED', '${created_at}', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL)${end}\n`;
     fs.appendFileSync(file, sql, function(err) {
       if (err) {
         console.log(err);
