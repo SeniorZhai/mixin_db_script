@@ -1,0 +1,24 @@
+{
+  "name": "mixin",
+  "version": "1.0.0",
+  "description": "```bash // Please force stop mixin node batch_insert.js count [conversation_id] [user_id] [user_id] // Waiting  push-db.sh ```",
+  "main": "batch_insert.js",
+  "dependencies": {
+    "shelljs": "^0.8.4",
+    "uuid": "^8.2.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SeniorZhai/mixin_db_script.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SeniorZhai/mixin_db_script/issues"
+  },
+  "homepage": "https://github.com/SeniorZhai/mixin_db_script#readme"
+}
