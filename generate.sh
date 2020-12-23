@@ -12,7 +12,7 @@ file=$4
 
 
 echo "BEGIN TRANSACTION;" > $file
-echo "INSERT INTO messages (id,conversation_id,user_id,category,content,media_url,media_mime_type,media_size,media_duration,media_width,media_height,media_hash,thumb_image,media_key,media_digest,media_status,status,created_at,action,participant_id,snapshot_id,hyperlink,name,album_id,sticker_id,shared_user_id,media_waveform,media_mine_type,quote_message_id,quote_content) VALUES" >> $file
+echo "INSERT INTO messages (message_id,conversation_id,user_id,category,content,media_url,media_mime_type,media_size,media_duration,media_width,media_height,media_hash,thumb_image,media_key,media_digest,media_status,status,created_at,action,participant_id,snapshot_id,hyperlink,name,album_id,sticker_id,shared_user_id,media_waveform,quote_message_id,quote_content) VALUES" >> $file
 
 for ((i=1;i<=$count;i++))
 do
@@ -21,9 +21,9 @@ do
     created_at=`gdate`
     if(($i == $count))
     then
-      echo "('$id', '$conversation_id','$user_id', 'SIGNAL_TEXT', '$content', NULL, NULL, NULL, NULL, NULL, NULL, NULL,NULL, NULL, NULL, NULL, 'READ', '$created_at', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);" >> $file
+      echo "('$id', '$conversation_id','$user_id', 'SIGNAL_TEXT', '$content', NULL, NULL, NULL, NULL, NULL, NULL, NULL,NULL, NULL, NULL, NULL, 'READ', '$created_at', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);" >> $file
     else
-      echo "('$id', '$conversation_id','$user_id', 'SIGNAL_TEXT', '$content', NULL, NULL, NULL, NULL, NULL, NULL, NULL,NULL, NULL, NULL, NULL, 'READ', '$created_at', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL)," >> $file
+      echo "('$id', '$conversation_id','$user_id', 'SIGNAL_TEXT', '$content', NULL, NULL, NULL, NULL, NULL, NULL, NULL,NULL, NULL, NULL, NULL, 'READ', '$created_at', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL)," >> $file
     fi
 done
 
