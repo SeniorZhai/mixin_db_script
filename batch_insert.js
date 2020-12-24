@@ -72,7 +72,6 @@ INSERT INTO messages (id,conversation_id,user_id,category,content,media_url,medi
   }
   var end = `CREATE TRIGGER conversation_last_message_update AFTER INSERT ON messages BEGIN UPDATE conversations SET last_message_id = new.id WHERE conversation_id = new.conversation_id; END;
 CREATE TRIGGER conversation_last_message_delete AFTER DELETE ON messages BEGIN UPDATE conversations SET last_message_id = (select id from messages where conversation_id = old.conversation_id order by created_at DESC limit 1) WHERE conversation_id = old.conversation_id; END;
-CREATE TRIGGER conversation_unseen_message_count_insert AFTER INSERT ON messages BEGIN UPDATE conversations SET unseen_message_count = (SELECT count(m.id) FROM messages m, users u WHERE m.user_id = u.user_id AND u.relationship != 'ME' AND m.status = 'READ' AND conversation_id = new.conversation_id) where conversation_id = new.conversation_id; END;
 COMMIT;`;
   fs.appendFileSync(file, end, function (err) {
     if (err) {
