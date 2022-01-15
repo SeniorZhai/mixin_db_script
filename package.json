@@ -4,7 +4,7 @@
   "description": "```bash // Please force stop mixin node batch_insert.js count [conversation_id] [user_id] [user_id] // Waiting  push-db.sh ```",
   "main": "batch_insert.js",
   "dependencies": {
-    "shelljs": "^0.8.4",
+    "shelljs": "^0.8.5",
     "uuid": "^8.2.0"
   },
   "devDependencies": {},
